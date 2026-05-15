@@ -1,73 +1,113 @@
-# React + TypeScript + Vite
+# React Alert Component
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A highly customizable, responsive, and beautiful alert component system for React applications. Built with TypeScript, Sass, and Lucide Icons.
 
-Currently, two official plugins are available:
+![Alert Component Demo](https://raw.githubusercontent.com/AbanoubPhelopos/react-alert-project/main/public/demo.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+- 🎨 **Multiple Variants**: Success, Error, Warning, Info, and Default styles.
+- 🧩 **Flexible Content**: Support for both simple string descriptions and complex React children.
+- 🛠️ **Fully Typed**: Built with TypeScript for excellent developer experience.
+- ⚡ **Vite Powered**: Ultra-fast development and build process.
+- 📦 **Lucide Icons**: Integrated with the beautiful Lucide icon library.
+- 📱 **Responsive Design**: Looks great on all screen sizes.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Getting Started
 
-## Expanding the ESLint configuration
+### Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/AbanoubPhelopos/react-alert-project.git
+   ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠️ Usage
+
+Import the `Alert` component and the desired icons:
+
+```tsx
+import { Bell, Info, CheckCheck, Ban, AlertTriangle } from "lucide-react";
+import Alert from "./components/ui/Alert";
+
+const App = () => {
+  return (
+    <div style={{ padding: "2rem" }}>
+      {/* Default Alert with Children */}
+      <Alert type="alert-default" icon={<Bell size={20} />} title="Upgrade your plan">
+        <p>
+          Enhance your experience by upgrading to a premium plan. <a href="/">Learn more</a>.
+        </p>
+      </Alert>
+
+      {/* Info Alert with Description Prop */}
+      <Alert
+        type="alert-info"
+        icon={<Info size={20} />}
+        title="Note"
+        description="This is a helpful information message for the user."
+      />
+
+      {/* Success Alert */}
+      <Alert
+        type="alert-success"
+        icon={<CheckCheck size={20} />}
+        title="Success"
+        description="Your changes have been saved successfully!"
+      />
+    </div>
+  );
+};
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📋 Props
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The `Alert` component accepts the following props:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `type` | `AlertTypes` | `"alert-error"` | The visual style of the alert. |
+| `icon` | `ReactNode` | **Required** | The icon to display in the header. |
+| `title` | `string` | **Required** | The main heading text. |
+| `description` | `string` | `undefined` | Simple text content for the alert. |
+| `children` | `ReactNode` | `undefined` | Complex content (overrides `description` if provided). |
+
+### AlertTypes
+Available types:
+- `"alert-default"`
+- `"alert-info"`
+- `"alert-success"`
+- `"alert-error"`
+- `"alert-warning"`
+
+## 🎨 Customization
+
+### Sass Variables
+The component's theme can be easily customized by modifying the Sass variables in `src/components/ui/Alert/index.scss`:
+
+| Variable | Description |
+| :--- | :--- |
+| `$defaultBg`, `$infoBg`, etc. | Background colors for each alert type. |
+| `$defaultColor`, `$infoColor`, etc. | Text colors for each alert type. |
+| `$defaultBorder`, `$infoBorder`, etc. | Border colors for each alert type. |
+
+### Mixins
+The styles are generated using a Sass mixin, making it easy to add new alert types if needed:
+
+```scss
+@include alert("alert-custom", $customBg, $customColor, $customBorder);
 ```
+
+## 📄 License
+
+This project is open-sourced under the MIT License. Created by [Abanoub Phelopos](https://github.com/AbanoubPhelopos).
